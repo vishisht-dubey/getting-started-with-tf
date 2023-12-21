@@ -12,8 +12,9 @@ steps:
   displayName: 'Install Terraform'
   inputs:
     terraformVersion: 'latest'
-
+    
 - task: TerraformTaskV4@4
+  displayName: Terraform init
   inputs:
     provider: 'azurerm'
     command: 'init'
