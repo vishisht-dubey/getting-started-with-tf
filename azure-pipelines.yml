@@ -36,6 +36,7 @@ steps:
     command: 'plan'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     commandOptions: '-out=tfplan'
+    environmentServiceNameAzureRM: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
 
 - task: TerraformTaskV4@4
   displayName: 'Terraform Apply'
@@ -43,6 +44,7 @@ steps:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
     commandOptions: '-auto-approve -input=false tfplan'
+    environmentServiceNameAzureRM: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
 
 
 
