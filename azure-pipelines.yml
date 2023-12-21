@@ -42,9 +42,7 @@ steps:
   displayName: 'Terraform Apply'
   inputs:
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
     commandOptions: '-auto-approve -input=false tfplan'
-    environmentServiceNameAzureRM: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
 
 
 
