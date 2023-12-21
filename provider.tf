@@ -12,6 +12,11 @@ terraform {
       version = ">= 3.0"
     }
   }
+backend "azurerm" {
+   storage_account_name = "mysac17xf9mz2mqjf0f9"
+   container_name = "myfirstcontainer"
+   key="tf/terraform.tfstate"
+  }
 }
 
 # Provider Block
