@@ -24,25 +24,25 @@ steps:
     backendAzureRmContainerName: 'myfirstcontainer'
     backendAzureRmKey: 'tf/terraform.tfstate'
 
-# - task: TerraformTaskV3@3
-#   displayName: 'Terraform Validate'
-#   inputs:
-#     command: 'validate'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)'
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Validate'
+  inputs:
+    command: 'validate'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
 
-# - task: TerraformTaskV3@3
-#   displayName: 'Terraform Plan'
-#   inputs:
-#     command: 'plan'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)'
-#     commandOptions: '-out=tfplan'
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Plan'
+  inputs:
+    command: 'plan'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    commandOptions: '-out=tfplan'
 
-# - task: TerraformTaskV3@3
-#   displayName: 'Terraform Apply'
-#   inputs:
-#     command: 'apply'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)'
-#     commandOptions: '-auto-approve -input=false tfplan'
+- task: TerraformTaskV4@4
+  displayName: 'Terraform Apply'
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+    commandOptions: '-auto-approve -input=false tfplan'
 
 
 
