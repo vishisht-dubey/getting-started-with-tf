@@ -13,6 +13,7 @@ terraform {
     }
   }
 backend "azurerm" {
+   resource_group_name = "myrg-1.0"
    storage_account_name = "mysac17xf9mz2mqjf0f9"
    container_name = "myfirstcontainer"
    key="tf/terraform.tfstate"
