@@ -32,11 +32,6 @@ steps:
   inputs:
     command: 'validate'
     workingDirectory: '$(System.DefaultWorkingDirectory)'
-    backendServiceArm: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
-    backendAzureRmResourceGroupName: 'myrg-1.0'
-    backendAzureRmStorageAccountName: 'mysac17xf9mz2mqjf0f9'
-    backendAzureRmContainerName: 'myfirstcontainer'
-    backendAzureRmKey: 'tf/terraform.tfstate'
 
 - task: TerraformTaskV3@3
   displayName: 'Terraform Plan'
