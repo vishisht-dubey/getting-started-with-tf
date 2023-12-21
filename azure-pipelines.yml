@@ -16,10 +16,26 @@ steps:
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
-- task: NodeTool@0
+  displayName: 'Hello Terraform Azure Pipeline'
+
+
+- task: TerraformTaskV4@4
   inputs:
-    versionSource: 'spec'
-    versionSpec: '6.x'
-    checkLatest: true
-    nodejsMirror: 'npm'
-  displayName: 'Run a multi-line script'
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
+    backendAzureRmResourceGroupName: 'myrg-1.0'
+    backendAzureRmStorageAccountName: 'mysac17xf9mz2mqjf0f9'
+    backendAzureRmContainerName: 'myfirstcontainer'
+    backendAzureRmKey: 'tf/terraform.tfstate'
+  
+- script: |
+    cd $(workingDirectory)
+    terraform plan -out=tfplan
+  displayName: 'Terraform Plan'
+
+- script: |
+    cd $(workingDirectory)
+    terraform apply -auto-approve tfplan
+  displayName: 'Terraform Apply'
+
