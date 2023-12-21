@@ -1,15 +1,28 @@
+# Terraform Block
 terraform {
-  required_version = ">=1.6.6"
+  required_version = ">= 0.15"
   required_providers {
     azurerm = {
-        source = "hashicorp/azurerm"
-        version = ">=2.2.0"
+      source = "hashicorp/azurerm"
+      # version = "1.44.0"
+      version = ">= 2.0" 
     }
+    random = {
+      source = "hashicorp/random"
+      version = ">= 3.0"
+    }
+  }
+backend "azurerm" {
+   resource_group_name = "myrg-1.0"
+   storage_account_name = "mysac17xf9mz2mqjf0f9"
+   container_name = "myfirstcontainer"
+   key="tf/terraform.tfstate"
   }
 }
 
-# default provider
+# Provider Block
 provider "azurerm" {
-  features {}
+features {}          
 }
+
 
