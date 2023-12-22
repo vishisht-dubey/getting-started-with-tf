@@ -1,49 +1,91 @@
 trigger: none
+stages:
+  - stage: 'Install'
+    displayName: 'Intalling the Terraform'
+    jobs:
+      - job: 'Installation'
+        displayName: 'Installation'
+        pool:
+          name: 'agent-pool-1'
+        steps: 
+        - task: TerraformInstaller@1
+          inputs:
+           terraformVersion: 'latest'
 
-pool:
-  name: 'agent-pool-1'
-
-
-steps:
-- checkout: self
-  displayName: 'Checkout repository'
-
-- task: TerraformInstaller@1
-  displayName: 'Install Terraform'
-  inputs:
-    terraformVersion: 'latest'
-    
-- task: TerraformTaskV4@4
-  displayName: Terraform init
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
-    backendAzureRmResourceGroupName: 'myrg-1.0'
-    backendAzureRmStorageAccountName: 'mysac17xf9mz2mqjf0f9'
-    backendAzureRmContainerName: 'myfirstcontainer'
-    backendAzureRmKey: 'tf/terraform.tfstate'
-
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Validate'
-  inputs:
-    command: 'validate'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
-
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Plan'
-  inputs:
-    command: 'plan'
-    workingDirectory: '$(System.DefaultWorkingDirectory)'
-    commandOptions: '-out=tfplan'
-    environmentServiceNameAzureRM: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
-
-- task: TerraformTaskV4@4
-  displayName: 'Terraform Apply'
-  inputs:
-    command: 'apply'
-    commandOptions: '-auto-approve -input=false tfplan'
-    environmentServiceNameAzureRM: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
-
-
-
+  - stage: 
+    displayName: 'Initiating Terraform'
+    jobs:
+      - job: 'Initiate'
+        displayName: 'Initiating terraform'
+        pool: 
+          name: 'agent-pool-1'
+        steps:
+        - task: TerraformInstaller@1
+          inputs:
+           terraformVersion: 'latest'
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            backendServiceArm: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
+            backendAzureRmResourceGroupName: 'myrg-1.0'
+            backendAzureRmStorageAccountName: 'mysac17xf9mz2mqjf0f9'
+            backendAzureRmContainerName: 'myfirstcontainer'
+            backendAzureRmKey: 'tf/terraform.tfstate'
+  - stage: 
+    displayName: 'Validating Terraform'
+    jobs:
+        - job: 'Validate'
+          displayName: 'Validating terraform'
+          pool: 
+            name: 'agent-pool-1'
+          steps:
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
+              backendAzureRmResourceGroupName: 'myrg-1.0'
+              backendAzureRmStorageAccountName: 'mysac17xf9mz2mqjf0f9'
+              backendAzureRmContainerName: 'myfirstcontainer'
+              backendAzureRmKey: 'tf/terraform.tfstate'
+          - task: TerraformTaskV3@3
+            displayName: 'Terraform Validate'
+            inputs:
+              command: 'validate'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - stage: 
+    displayName: 'Planning Terraform'
+    jobs:
+        - job: 'Plan'
+          displayName: 'Planning terraform'
+          pool: 
+            name: 'agent-pool-1'
+          steps:
+          - task: TerraformInstaller@1
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
+              backendAzureRmResourceGroupName: 'myrg-1.0'
+              backendAzureRmStorageAccountName: 'mysac17xf9mz2mqjf0f9'
+              backendAzureRmContainerName: 'myfirstcontainer'
+              backendAzureRmKey: 'tf/terraform.tfstate'
+          - task: TerraformTaskV3@3
+            displayName: 'Terraform Validate'
+            inputs:
+              command: 'validate'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              environmentServiceNameAzureRM: 'Azure for Students(3f0f1366-aba7-4984-a589-fbc0bfc1159c)'
+              
+             
